@@ -29,74 +29,72 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding: 40px 32px; 
+    padding: 24px 16px;
   }
 
   h1 {
-    font-size: 2rem; 
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     letter-spacing: -0.5px;
     text-align: center;
   }
 
   .layout {
     display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 32px;
-    max-width: 1400px; 
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 800px) {
     .layout { grid-template-columns: 1fr; }
   }
 
   .panel {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
+    border-radius: 12px;
+    padding: 20px;
   }
 
   .panel-title {
-    font-size: 1.1rem; 
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--sub);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
 
-  /* ── 교실 설정 ── */
   .grid-setting {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
-  .grid-setting label { font-size: 1rem; color: var(--sub); white-space: nowrap; }
+  .grid-setting label { font-size: 0.85rem; color: var(--sub); white-space: nowrap; }
 
   input[type="number"] {
-    width: 70px;
-    padding: 8px 12px;
+    width: 60px;
+    padding: 6px 8px;
     border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 1.05rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
     font-family: inherit;
     text-align: center;
   }
 
-  /* ── 버튼 ── */
   .btn {
     display: inline-block;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 7px;
     border: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 500;
     transition: filter 0.15s;
   }
@@ -104,46 +102,45 @@
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-secondary { background: var(--border); color: var(--text); }
   .btn-danger { background: #fde8ef; color: #c0395a; }
-  .btn-sm { padding: 6px 12px; font-size: 0.9rem; }
+  .btn-sm { padding: 5px 10px; font-size: 0.78rem; }
   .btn-full { width: 100%; }
 
   select {
-    padding: 8px 10px;
+    padding: 6px 8px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 
-  /* ── 학생 입력 ── */
   .student-input-row {
     display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
+    gap: 6px;
+    margin-bottom: 10px;
   }
 
   .student-input-row input[type="text"] {
     flex: 1;
-    padding: 10px 14px;
+    padding: 7px 10px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.88rem;
   }
 
   .gender-toggle {
     display: flex;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
   }
 
   .gender-toggle button {
-    padding: 8px 16px;
+    padding: 6px 10px;
     border: none;
     background: transparent;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 0.82rem;
     font-family: inherit;
     transition: background 0.15s, color 0.15s;
   }
@@ -151,44 +148,43 @@
   .gender-toggle button.active-m { background: var(--male); color: #fff; }
   .gender-toggle button.active-f { background: var(--female); color: #fff; }
 
-  /* ── 학생 목록 ── */
   .student-list {
-    max-height: 250px; 
+    max-height: 220px;
     overflow-y: auto;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
   }
 
   .student-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
+    padding: 7px 10px;
     border-bottom: 1px solid var(--border);
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
   .student-item:last-child { border-bottom: none; }
 
   .student-badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 2px 7px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    margin-left: 8px;
+    margin-left: 6px;
   }
   .badge-m { background: var(--male-light); color: var(--male); }
   .badge-f { background: var(--female-light); color: var(--female); }
 
-  .student-count { font-size: 0.9rem; color: var(--sub); margin-bottom: 10px; }
+  .student-count { font-size: 0.78rem; color: var(--sub); margin-bottom: 8px; }
 
   /* ── 블랙리스트 ── */
   .blacklist-wrap {
-    margin-top: 16px;
+    margin-top: 12px;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
   }
   
@@ -196,18 +192,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
+    padding: 10px 12px;
     cursor: pointer;
     background: var(--surface);
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     transition: background 0.15s;
   }
   
   .bl-header:hover { background: var(--empty); }
   
   .bl-content {
-    padding: 16px;
+    padding: 12px;
     border-top: 1px solid var(--border);
   }
 
@@ -217,43 +213,41 @@
     justify-content: space-between;
     background: #fff;
     border: 1px solid #ddd;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
   }
 
-  /* ── 오른쪽 패널 ── */
-  .right-panel { display: flex; flex-direction: column; gap: 24px; }
+  .right-panel { display: flex; flex-direction: column; gap: 16px; }
 
-  /* ── 자리 에디터 ── */
   .classroom-wrap {
     overflow-x: auto;
-    padding-bottom: 16px;
+    padding-bottom: 8px;
     text-align: center; 
   }
 
   .classroom-grid {
     display: inline-grid;
-    gap: 12px; 
+    gap: 6px;
     margin: 0 auto;
-    padding: 10px; /* 💡 수정: 확대 시 잘림 방지를 위한 여백 */
+    padding: 10px; 
   }
 
   .seat {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
     border: 2px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.72rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.2;
     user-select: none;
     position: relative;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
@@ -266,82 +260,78 @@
   
   #seatGrid .seat.fixed-seat { border: 2px solid #555 !important; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-  /* 💡 수정: 확대 시 z-index를 올려서 다른 요소에 가려지지 않게 함 */
   .seat:hover:not(.result-mode) { 
-    transform: scale(1.05); 
+    transform: scale(1.06); 
     z-index: 2; 
   }
 
-  .seat .seat-name { font-size: 1.1rem; line-height: 1.3; word-break: break-all; font-weight: 700; }
+  .seat .seat-name { font-size: 0.8rem; line-height: 1.2; word-break: break-all; font-weight: 700; }
 
   .board-label {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--sub);
-    padding: 10px 0 24px;
+    padding: 6px 0 10px;
     letter-spacing: 0.5px;
   }
 
-  /* ── 범례 ── */
   .legend {
     display: flex;
-    gap: 16px;
-    font-size: 0.95rem;
+    gap: 12px;
+    font-size: 0.78rem;
     color: var(--sub);
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .legend-dot {
-    width: 16px; height: 16px;
-    border-radius: 4px;
+    width: 12px; height: 12px;
+    border-radius: 3px;
     display: inline-block;
-    margin-right: 6px;
+    margin-right: 4px;
     vertical-align: middle;
   }
 
-  /* ── 결과 ── */
   .result-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 
-  .result-header-buttons { display: flex; gap: 8px; }
+  .result-header-buttons { display: flex; gap: 6px; }
 
   #captureArea {
     background-color: var(--surface);
-    padding: 20px;
+    padding: 16px;
     border-radius: 12px;
   }
 
-  .msg { font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; }
+  .msg { font-size: 0.83rem; padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; }
   .msg-error { background: #fff0f0; color: #c0395a; border: 1px solid #f9c; }
   .msg-success { background: #efffee; color: #2a7a3b; border: 1px solid #9de; }
   .msg-info { background: #e0f0ff; color: #0055aa; border: 1px solid #bce; font-weight: 700; }
 
-  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
 
-  .action-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .action-row { display: flex; gap: 8px; flex-wrap: wrap; }
 
-  /* ── 모드 탭 ── */
   .mode-tabs {
     display: flex;
     border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   .mode-tab {
     flex: 1;
-    padding: 10px 0;
+    padding: 7px 0;
     border: none;
     background: transparent;
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.82rem;
     font-weight: 500;
     color: var(--sub);
     transition: background 0.15s, color 0.15s;
@@ -350,43 +340,75 @@
 
   .text-mode-wrap textarea {
     width: 100%;
-    height: 150px;
-    padding: 12px 14px;
+    height: 100px;
+    padding: 8px 10px;
     border: 1px solid var(--border);
     border-radius: 8px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.85rem;
     resize: vertical;
     line-height: 1.6;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .text-mode-hint {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: var(--sub);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     line-height: 1.6;
     background: var(--bg);
-    padding: 12px 14px;
-    border-radius: 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
   }
+
+  /* ✨ 카운트다운 오버레이 스타일 추가 */
+  #countdownOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .count-number {
+    font-size: 15rem;
+    color: #ffffff;
+    font-weight: 900;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 0;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
 </style>
 </head>
 <body>
+
+<div id="countdownOverlay">
+  <div id="countText" class="count-number">3</div>
+</div>
 
 <h1>🪑 자리 배치기</h1>
 
 <div class="layout">
   <div>
-    <div class="panel" style="margin-bottom:24px">
+    <div class="panel" style="margin-bottom:16px">
       <div class="panel-title">① 교실 설정</div>
       <div class="grid-setting">
         <label>열(가로)</label>
         <input type="number" id="cols" value="6" min="1" max="12">
         <label>줄(세로)</label>
         <input type="number" id="rows" value="5" min="1" max="10">
-        <button class="btn btn-secondary" onclick="applyGrid()">적용</button>
+        <button class="btn btn-secondary btn-sm" onclick="applyGrid()">적용</button>
       </div>
-      <div style="font-size:0.9rem;color:var(--sub);margin-top:8px;">자리를 클릭해서 남/여/빈자리를 지정하세요.</div>
+      <div style="font-size:0.78rem;color:var(--sub)">자리를 클릭해서 남/여/빈자리를 지정하세요.</div>
     </div>
 
     <div class="panel">
@@ -404,7 +426,7 @@
             <button id="btnM" onclick="setGender('m')" class="active-m">남</button>
             <button id="btnF" onclick="setGender('f')">여</button>
           </div>
-          <button class="btn btn-primary" onclick="addStudent()">추가</button>
+          <button class="btn btn-primary btn-sm" onclick="addStudent()">추가</button>
         </div>
       </div>
 
@@ -416,23 +438,23 @@
         <div class="text-mode-wrap">
           <textarea id="textInput" placeholder="남: 홍길동 이순신 장보고&#10;여: 유관순 신사임당"></textarea>
         </div>
-        <button class="btn btn-primary btn-full" onclick="parseTextInput()">📥 명단 불러오기</button>
+        <button class="btn btn-primary btn-full btn-sm" onclick="parseTextInput()">📥 명단 불러오기</button>
       </div>
 
       <hr>
       <div class="student-count" id="studentCount">학생 0명 (남 0 / 여 0)</div>
       <div class="student-list" id="studentList"></div>
-      <button class="btn btn-secondary btn-full" style="margin-bottom: 20px;" onclick="clearStudents()">명단 초기화</button>
+      <button class="btn btn-secondary btn-full btn-sm" style="margin-bottom: 16px;" onclick="clearStudents()">명단 초기화</button>
 
-      <div style="background: var(--empty); padding: 16px; border-radius: 10px; border: 1px solid var(--border);">
-        <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">📌 특정 학생 고정석</div>
-        <div style="display: flex; gap: 8px;">
+      <div style="background: var(--empty); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">📌 특정 학생 고정석</div>
+        <div style="display: flex; gap: 6px;">
           <select id="fixedStudentSelect" style="flex: 1;">
             <option value="">학생 명단을 추가해주세요</option>
           </select>
-          <button class="btn btn-primary" id="btnFixedMode" onclick="toggleFixedMode()">자리 지정</button>
+          <button class="btn btn-primary btn-sm" id="btnFixedMode" onclick="toggleFixedMode()">자리 지정</button>
         </div>
-        <div style="font-size:0.8rem; color:var(--sub); margin-top:8px;">버튼을 누른 후 우측 칠판에서 자리를 클릭하세요.</div>
+        <div style="font-size:0.75rem; color:var(--sub); margin-top:6px;">버튼을 누른 후 우측 칠판에서 자리를 클릭하세요.</div>
       </div>
 
       <div class="blacklist-wrap">
@@ -443,14 +465,14 @@
         <div class="bl-content" id="blacklistContent" style="display:none;">
           <div id="blacklistList"></div>
           
-          <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px; margin-top:8px;">새 그룹 추가 (앞뒤양옆 금지)</div>
-          <div id="blInputWrap" style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <div style="font-size:0.78rem; font-weight:700; margin-bottom:6px; margin-top:6px;">새 그룹 추가 (앞뒤양옆 금지)</div>
+          <div id="blInputWrap" style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px;">
             <select class="bl-select"><option value="">선택</option></select>
             <select class="bl-select"><option value="">선택</option></select>
           </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn btn-secondary btn-sm" style="font-size: 1.1rem; padding: 4px 14px;" onclick="addBlSelect()">+</button>
-            <button class="btn btn-secondary btn-sm" style="font-size: 1.1rem; padding: 4px 14px;" onclick="removeBlSelect()">-</button>
+          <div style="display:flex; gap:4px;">
+            <button class="btn btn-secondary btn-sm" style="font-size: 1rem; padding: 2px 10px;" onclick="addBlSelect()">+</button>
+            <button class="btn btn-secondary btn-sm" style="font-size: 1rem; padding: 2px 10px;" onclick="removeBlSelect()">-</button>
             <button class="btn btn-primary btn-sm" style="flex:1" onclick="saveBlacklist()">그룹 등록</button>
           </div>
         </div>
@@ -475,14 +497,14 @@
       <div class="classroom-wrap">
         <div class="classroom-grid" id="seatGrid"></div>
       </div>
-      <div style="margin-top:16px;font-size:0.9rem;color:var(--sub);text-align:center;">클릭 순서: 미지정 → 남 → 여 → 빈자리 → 미지정<br>(고정석은 클릭하면 바로 해제됩니다)</div>
+      <div style="margin-top:10px;font-size:0.78rem;color:var(--sub);text-align:center;">클릭 순서: 미지정 → 남 → 여 → 빈자리 → 미지정<br>(고정석은 클릭하면 바로 해제됩니다)</div>
     </div>
 
     <div class="panel">
       <div class="panel-title">④ 배치 실행</div>
       <div id="msgBox"></div>
       <div class="action-row">
-        <button class="btn btn-primary" onclick="arrange()" style="font-size:1.1rem; padding: 12px 24px;">🎲 랜덤 배치!</button>
+        <button class="btn btn-primary" onclick="checkAndStartCountdown()" style="font-size:1rem; padding: 10px 20px;">🎲 랜덤 배치!</button>
         <button class="btn btn-secondary" onclick="clearResult()">결과 초기화</button>
       </div>
     </div>
@@ -492,7 +514,7 @@
         <div class="panel-title" style="margin:0">배치 결과</div>
         <div class="result-header-buttons">
           <button class="btn btn-primary btn-sm" onclick="downloadImage()">📸 이미지 저장</button>
-          <button class="btn btn-secondary btn-sm" onclick="arrange()">🔄 다시 배치</button>
+          <button class="btn btn-secondary btn-sm" onclick="checkAndStartCountdown()">🔄 다시 배치</button>
         </div>
       </div>
       
@@ -518,6 +540,41 @@ let currentGender = 'm';
 
 let isFixedMode = false;
 let pendingFixedStudent = null;
+
+// ── 웹 오디오 API 설정 (효과음 생성기) ──
+let audioCtx = null;
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+// 기본 삐- 소리 (카운트다운용)
+function playBeep(freq, type, duration) {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  // 부드럽게 소리가 꺼지도록 설정
+  gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+  osc.stop(audioCtx.currentTime + duration);
+}
+
+// 빰빠밤! (결과 발표용 아르페지오)
+function playTada() {
+  setTimeout(() => playBeep(523.25, 'square', 0.2), 0);     // 도
+  setTimeout(() => playBeep(659.25, 'square', 0.2), 150);   // 미
+  setTimeout(() => playBeep(783.99, 'square', 0.2), 300);   // 솔
+  setTimeout(() => playBeep(1046.50, 'square', 0.5), 450);  // 높은 도
+}
 
 // ── 초기화 ──
 function init() {
@@ -561,11 +618,11 @@ function applyAisleMargin(seat, index, totalCols) {
   const c = index % totalCols;
   if (totalCols % 2 === 0) {
     if (c % 2 === 1 && c !== totalCols - 1) {
-      seat.style.marginRight = '40px'; 
+      seat.style.marginRight = '20px'; 
     }
   } else {
     if (c !== totalCols - 1) {
-      seat.style.marginRight = '24px'; 
+      seat.style.marginRight = '12px'; 
     }
   }
 }
@@ -654,7 +711,7 @@ function toggleFixedMode() {
     isFixedMode = false;
     pendingFixedStudent = null;
     btn.textContent = '자리 지정';
-    btn.className = 'btn btn-primary';
+    btn.className = 'btn btn-primary btn-sm';
     select.disabled = false;
     alertDiv.style.display = 'none';
   } else {
@@ -664,7 +721,7 @@ function toggleFixedMode() {
     pendingFixedStudent = students.find(s => s.name === name);
     isFixedMode = true;
     btn.textContent = '지정 취소';
-    btn.className = 'btn btn-danger';
+    btn.className = 'btn btn-danger btn-sm';
     select.disabled = true;
     alertDiv.style.display = 'block';
     alertDiv.textContent = `👆 [${pendingFixedStudent.name}] 학생을 배치할 자리를 표에서 클릭하세요!`;
@@ -695,10 +752,8 @@ function addBlSelect() {
   wrap.appendChild(select);
 }
 
-// 💡 추가된 로직: 셀렉트 박스 제거 기능
 function removeBlSelect() {
   const wrap = document.getElementById('blInputWrap');
-  // 최소 2개의 선택 박스는 유지되도록 설정
   if (wrap.children.length > 2) {
     wrap.removeChild(wrap.lastChild);
   } else {
@@ -740,7 +795,7 @@ function renderBlacklist() {
   const list = document.getElementById('blacklistList');
   list.innerHTML = '';
   if (blacklists.length === 0) {
-    list.innerHTML = '<div style="font-size:0.85rem; color:var(--sub); margin-bottom:12px;">등록된 블랙리스트가 없습니다.</div>';
+    list.innerHTML = '<div style="font-size:0.8rem; color:var(--sub); margin-bottom:10px;">등록된 블랙리스트가 없습니다.</div>';
     return;
   }
 
@@ -748,8 +803,8 @@ function renderBlacklist() {
     const item = document.createElement('div');
     item.className = 'bl-item';
     item.innerHTML = `
-      <span>${group.join(' <span style="color:#c0395a;font-size:0.8rem;">❌</span> ')}</span>
-      <button class="btn btn-danger btn-sm" style="padding:4px 8px; font-size:0.75rem;" onclick="removeBlacklist(${i})">삭제</button>
+      <span>${group.join(' <span style="color:#c0395a;font-size:0.75rem;">❌</span> ')}</span>
+      <button class="btn btn-danger btn-sm" style="padding:2px 8px; font-size:0.7rem;" onclick="removeBlacklist(${i})">삭제</button>
     `;
     list.appendChild(item);
   });
@@ -889,7 +944,10 @@ function isValidArrangement(result) {
   return true;
 }
 
-function arrange() {
+// ✨ 기존 arrange 로직을 분리. (조건 검사 후 카운트다운을 띄우기 위함)
+function checkAndStartCountdown() {
+  initAudio(); // 버튼 클릭 시 오디오 권한 활성화
+
   const msgBox = document.getElementById('msgBox');
   msgBox.innerHTML = '';
 
@@ -908,6 +966,48 @@ function arrange() {
     msgBox.innerHTML = errors.map(e => `<div class="msg msg-error">⚠️ ${e}</div>`).join('');
     return;
   }
+
+  // 오류가 없으면 카운트다운 시작!
+  startCountdown();
+}
+
+// ✨ 카운트다운 로직
+function startCountdown() {
+  const overlay = document.getElementById('countdownOverlay');
+  const countText = document.getElementById('countText');
+  let count = 3;
+
+  overlay.style.display = 'flex';
+  
+  function tick() {
+    if (count > 0) {
+      countText.textContent = count;
+      // 애니메이션 재시작을 위한 트릭
+      countText.style.animation = 'none';
+      void countText.offsetWidth; 
+      countText.style.animation = 'popIn 0.8s forwards';
+      
+      playBeep(440, 'sine', 0.3); // 삐-
+      
+      count--;
+      setTimeout(tick, 1000); // 1초 뒤 다음 숫자
+    } else {
+      overlay.style.display = 'none'; // 오버레이 끄기
+      playTada(); // 빰빠밤!
+      arrangeLogic(); // 실제 배치 및 렌더링
+    }
+  }
+  
+  tick(); // 첫 번째 틱 실행
+}
+
+// ✨ 실제 배치 로직
+function arrangeLogic() {
+  const msgBox = document.getElementById('msgBox');
+  const unassignedMStudents = students.filter(s => s.gender === 'm' && !fixedSeats.find(f => f && f.name === s.name));
+  const unassignedFStudents = students.filter(s => s.gender === 'f' && !fixedSeats.find(f => f && f.name === s.name));
+  const availableMSeats = seatTypes.map((t, i) => t === 'm' && !fixedSeats[i] ? i : -1).filter(i => i >= 0);
+  const availableFSeats = seatTypes.map((t, i) => t === 'f' && !fixedSeats[i] ? i : -1).filter(i => i >= 0);
 
   let finalResult = null;
   const maxAttempts = 1000;
@@ -936,12 +1036,12 @@ function arrange() {
   }
 
   if (!finalResult) {
-    msgBox.innerHTML = `<div class="msg msg-error">⚠️ 블랙리스트 조건이 너무 까다로워서 배치를 완료할 수 없어요! 조건을 조금 줄여주세요. (1000번 재시도 실패)</div>`;
+    msgBox.innerHTML = `<div class="msg msg-error">⚠️ 블랙리스트 조건이 너무 까다로워서 배치를 완료할 수 없어요! 조건을 조금 줄여주세요.</div>`;
     return;
   }
 
   renderResult(finalResult);
-  msgBox.innerHTML = `<div class="msg msg-success">✅ 배치 완료! (블랙리스트 조건 통과)</div>`;
+  msgBox.innerHTML = `<div class="msg msg-success">🎉 두근두근 배치 완료!</div>`;
 }
 
 function renderResult(result) {
