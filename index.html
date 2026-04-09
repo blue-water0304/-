@@ -6,1051 +6,646 @@
 <title>자리 배치기</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --border: #e0ddd6;
-    --text: #1a1a1a;
-    --sub: #888;
-    --male: #4a90d9;
-    --female: #e06a8c;
-    --male-light: #dceeff;
-    --female-light: #fde8ef;
-    --accent: #3a7bd5;
-    --empty: #ebebeb;
-  }
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --border: #e0ddd6;
+    --text: #1a1a1a;
+    --sub: #888;
+    --male: #4a90d9;
+    --female: #e06a8c;
+    --male-light: #dceeff;
+    --female-light: #fde8ef;
+    --accent: #3a7bd5;
+    --empty: #ebebeb;
+  }
 
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 40px 32px; 
-  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 32px; 
+  }
 
-  h1 {
-    font-size: 2rem; 
-    font-weight: 700;
-    margin-bottom: 32px;
-    letter-spacing: -0.5px;
-    text-align: center;
-  }
+  h1 {
+    font-size: 2rem; 
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
 
-  .layout {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 32px;
-    max-width: 1400px; 
-    margin: 0 auto;
-  }
+  .layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 32px;
+    max-width: 1400px; 
+    margin: 0 auto;
+  }
 
-  @media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+  }
 
-  .panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-  }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
 
-  .panel-title {
-    font-size: 1.1rem; 
-    font-weight: 700;
-    color: var(--sub);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
-  }
+  .panel-title {
+    font-size: 1.1rem; 
+    font-weight: 700;
+    color: var(--sub);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+  }
 
-  /* ── 교실 설정 ── */
-  .grid-setting {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 12px;
-  }
+  /* ── 교실 설정 ── */
+  .grid-setting {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
 
-  .grid-setting label { font-size: 1rem; color: var(--sub); white-space: nowrap; }
+  .grid-setting label { font-size: 1rem; color: var(--sub); white-space: nowrap; }
 
-  input[type="number"] {
-    width: 70px;
-    padding: 8px 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 1.05rem;
-    font-family: inherit;
-    text-align: center;
-  }
+  input[type="number"] {
+    width: 70px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-family: inherit;
+    text-align: center;
+  }
 
-  /* ── 버튼 ── */
-  .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: filter 0.15s;
-  }
-  .btn:hover { filter: brightness(0.93); }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-secondary { background: var(--border); color: var(--text); }
-  .btn-danger { background: #fde8ef; color: #c0395a; }
-  .btn-sm { padding: 6px 12px; font-size: 0.9rem; }
-  .btn-full { width: 100%; }
+  /* ── 버튼 ── */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: filter 0.15s;
+  }
+  .btn:hover { filter: brightness(0.93); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: var(--border); color: var(--text); }
+  .btn-danger { background: #fde8ef; color: #c0395a; }
+  .btn-sm { padding: 6px 12px; font-size: 0.9rem; }
+  .btn-full { width: 100%; }
 
-  select {
-    padding: 8px 10px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-  }
+  select {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
 
-  /* ── 학생 입력 ── */
-  .student-input-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
-  }
+  /* ── 학생 입력 ── */
+  .student-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
 
-  .student-input-row input[type="text"] {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-  }
+  .student-input-row input[type="text"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+  }
 
-  .gender-toggle {
-    display: flex;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
+  .gender-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
 
-  .gender-toggle button {
-    padding: 8px 16px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-family: inherit;
-    transition: background 0.15s, color 0.15s;
-  }
+  .gender-toggle button {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: background 0.15s, color 0.15s;
+  }
 
-  .gender-toggle button.active-m { background: var(--male); color: #fff; }
-  .gender-toggle button.active-f { background: var(--female); color: #fff; }
+  .gender-toggle button.active-m { background: var(--male); color: #fff; }
+  .gender-toggle button.active-f { background: var(--female); color: #fff; }
 
-  /* ── 학생 목록 ── */
-  .student-list {
-    max-height: 250px; 
-    overflow-y: auto;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 16px;
-  }
+  /* ── 학생 목록 ── */
+  .student-list {
+    max-height: 250px; 
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
 
-  .student-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    font-size: 1rem;
-  }
-  .student-item:last-child { border-bottom: none; }
+  .student-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+  }
+  .student-item:last-child { border-bottom: none; }
 
-  .student-badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    margin-left: 8px;
-  }
-  .badge-m { background: var(--male-light); color: var(--male); }
-  .badge-f { background: var(--female-light); color: var(--female); }
+  .student-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+  .badge-m { background: var(--male-light); color: var(--male); }
+  .badge-f { background: var(--female-light); color: var(--female); }
 
-  .student-count { font-size: 0.9rem; color: var(--sub); margin-bottom: 10px; }
+  .student-count { font-size: 0.9rem; color: var(--sub); margin-bottom: 10px; }
 
-  /* ── 블랙리스트 ── */
-  .blacklist-wrap {
-    margin-top: 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .bl-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    cursor: pointer;
-    background: var(--surface);
-    font-weight: 700;
-    font-size: 0.95rem;
-    transition: background 0.15s;
-  }
-  
-  .bl-header:hover { background: var(--empty); }
-  
-  .bl-content {
-    padding: 16px;
-    border-top: 1px solid var(--border);
-  }
+  /* ── 블랙리스트 ── */
+  .blacklist-wrap {
+    margin-top: 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .bl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    background: var(--surface);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background 0.15s;
+  }
+  
+  .bl-header:hover { background: var(--empty); }
+  
+  .bl-content {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+  }
 
-  .bl-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-  }
+  .bl-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
 
-  /* ── 오른쪽 패널 ── */
-  .right-panel { display: flex; flex-direction: column; gap: 24px; }
+  /* ── 오른쪽 패널 ── */
+  .right-panel { display: flex; flex-direction: column; gap: 24px; }
 
-  /* ── 자리 에디터 ── */
-  .classroom-wrap {
-    overflow-x: auto;
-    padding-bottom: 16px;
-    text-align: center; 
-  }
+  /* ── 자리 에디터 ── */
+  .classroom-wrap {
+    overflow-x: auto;
+    padding-bottom: 16px;
+    text-align: center; 
+  }
 
-  .classroom-grid {
-    display: inline-grid;
-    gap: 12px; 
-    margin: 0 auto;
-    padding: 15px; 
-  }
+  .classroom-grid {
+    display: inline-grid;
+    gap: 12px; 
+    margin: 0 auto;
+    padding: 15px;
+  }
 
-  .seat {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    border: 2px solid transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-align: center;
-    line-height: 1.3;
-    user-select: none;
-    position: relative;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  }
+  .seat {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    line-height: 1.3;
+    user-select: none;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
 
-  .seat.empty    { background: var(--empty); color: #aaa; border-color: #ddd; }
-  .seat.male     { background: var(--male-light); color: var(--male); border-color: var(--male); }
-  .seat.female   { background: var(--female-light); color: var(--female); border-color: var(--female); }
-  .seat.unset    { background: #fff; border: 2px dashed #ccc; color: #bbb; }
-  
-  #seatGrid .seat.fixed-seat { border: 2px solid #555 !important; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+  .seat.empty    { background: var(--empty); color: #aaa; border-color: #ddd; }
+  .seat.male     { background: var(--male-light); color: var(--male); border-color: var(--male); }
+  .seat.female   { background: var(--female-light); color: var(--female); border-color: var(--female); }
+  .seat.unset    { background: #fff; border: 2px dashed #ccc; color: #bbb; }
+  
+  #seatGrid .seat.fixed-seat { border: 2px solid #555 !important; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-  .seat:hover:not(.result-mode) { 
-    transform: scale(1.05); 
-    z-index: 2; 
-  }
+  .seat:hover:not(.result-mode) { 
+    transform: scale(1.05); 
+    z-index: 2; 
+  }
 
-  .seat .seat-name { font-size: 1.1rem; line-height: 1.3; word-break: break-all; font-weight: 700; }
+  .seat .seat-name { font-size: 1.1rem; line-height: 1.3; word-break: break-all; font-weight: 700; }
 
-  .board-label {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--sub);
-    padding: 10px 0 24px;
-    letter-spacing: 0.5px;
-  }
+  .board-label {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--sub);
+    padding: 10px 0 24px;
+    letter-spacing: 0.5px;
+  }
 
-  /* ── 범례 ── */
-  .legend {
-    display: flex;
-    gap: 16px;
-    font-size: 0.95rem;
-    color: var(--sub);
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-  }
-  .legend-dot {
-    width: 16px; height: 16px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
+  /* ── 범례 ── */
+  .legend {
+    display: flex;
+    gap: 16px;
+    font-size: 0.95rem;
+    color: var(--sub);
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .legend-dot {
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
 
-  /* ── 결과 ── */
-  .result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
+  /* ── 결과 ── */
+  .result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
 
-  .result-header-buttons { display: flex; gap: 8px; }
+  .result-header-buttons { display: flex; gap: 8px; }
 
-  #captureArea {
-    background-color: var(--surface);
-    padding: 20px;
-    border-radius: 12px;
-  }
+  #captureArea {
+    background-color: var(--surface);
+    padding: 20px;
+    border-radius: 12px;
+  }
 
-  .msg { font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; }
-  .msg-error { background: #fff0f0; color: #c0395a; border: 1px solid #f9c; }
-  .msg-success { background: #efffee; color: #2a7a3b; border: 1px solid #9de; }
-  .msg-info { background: #e0f0ff; color: #0055aa; border: 1px solid #bce; font-weight: 700; }
+  .msg { font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; }
+  .msg-error { background: #fff0f0; color: #c0395a; border: 1px solid #f9c; }
+  .msg-success { background: #efffee; color: #2a7a3b; border: 1px solid #9de; }
+  .msg-info { background: #e0f0ff; color: #0055aa; border: 1px solid #bce; font-weight: 700; }
 
-  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
-  .action-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .action-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* ── 모드 탭 ── */
-  .mode-tabs {
-    display: flex;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-  .mode-tab {
-    flex: 1;
-    padding: 10px 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--sub);
-    transition: background 0.15s, color 0.15s;
-  }
-  .mode-tab.active { background: var(--accent); color: #fff; }
+  /* ── 모드 탭 ── */
+  .mode-tabs {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .mode-tab {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--sub);
+    transition: background 0.15s, color 0.15s;
+  }
+  .mode-tab.active { background: var(--accent); color: #fff; }
 
-  /* ── 카운트다운 오버레이 ── */
-  #countdownOverlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 9999;
-    display: none; 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  /* ── 카운트다운 오버레이 ── */
+  #countdownOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-  .count-number {
-    font-size: 15rem;
-    color: #ffffff;
-    font-weight: 900;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    margin: 0;
-  }
+  .count-number {
+    font-size: 15rem;
+    color: #ffffff;
+    font-weight: 900;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 0;
+  }
 
-  @keyframes popIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    60% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-  }
+  @keyframes popIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
 
 </style>
 </head>
 <body>
 
 <div id="countdownOverlay">
-  <div id="countText" class="count-number">5</div>
+  <div id="countText" class="count-number">5</div>
 </div>
 
 <h1>🪑 자리 배치기</h1>
 
 <div class="layout">
-  <div>
-    <div class="panel" style="margin-bottom:24px">
-      <div class="panel-title">① 교실 설정</div>
-      <div class="grid-setting">
-        <label>열(가로)</label>
-        <input type="number" id="cols" value="6" min="1" max="12">
-        <label>줄(세로)</label>
-        <input type="number" id="rows" value="5" min="1" max="10">
-        <button class="btn btn-secondary" onclick="applyGrid()">적용</button>
-      </div>
-      <div style="font-size:0.9rem;color:var(--sub);margin-top:8px;">자리를 클릭해서 남/여/빈자리를 지정하세요.</div>
-    </div>
+  <div>
+    <div class="panel" style="margin-bottom:24px">
+      <div class="panel-title">① 교실 설정</div>
+      <div class="grid-setting">
+        <label>열(가로)</label>
+        <input type="number" id="cols" value="6" min="1" max="12">
+        <label>줄(세로)</label>
+        <input type="number" id="rows" value="5" min="1" max="10">
+        <button class="btn btn-secondary" onclick="applyGrid()">적용</button>
+      </div>
+    </div>
 
-    <div class="panel">
-      <div class="panel-title">② 학생 명단</div>
+    <div class="panel">
+      <div class="panel-title">② 학생 명단</div>
+      <div class="mode-tabs">
+        <button class="mode-tab active" id="tabOne" onclick="switchMode('one')">✏️ 입력</button>
+        <button class="mode-tab" id="tabText" onclick="switchMode('text')">📋 텍스트</button>
+      </div>
+      <div id="modeOne">
+        <div class="student-input-row">
+          <input type="text" id="nameInput" placeholder="이름" maxlength="8" onkeydown="if(event.key==='Enter')addStudent()">
+          <div class="gender-toggle">
+            <button id="btnM" onclick="setGender('m')" class="active-m">남</button>
+            <button id="btnF" onclick="setGender('f')">여</button>
+          </div>
+          <button class="btn btn-primary" onclick="addStudent()">추가</button>
+        </div>
+      </div>
+      <div id="modeText" style="display:none">
+        <div class="text-mode-wrap">
+          <textarea id="textInput" placeholder="남: 홍길동... 여: 심청이..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="parseTextInput()">📥 불러오기</button>
+      </div>
+      <hr>
+      <div class="student-count" id="studentCount">학생 0명</div>
+      <div class="student-list" id="studentList"></div>
+      <button class="btn btn-secondary btn-full" onclick="clearStudents()">초기화</button>
+      <div class="blacklist-wrap">
+        <div class="bl-header" onclick="toggleBlacklist()">
+          <span>⛔ 블랙리스트</span>
+          <span id="blToggleIcon">⬇️</span>
+        </div>
+        <div class="bl-content" id="blacklistContent" style="display:none;">
+          <div id="blacklistList"></div>
+          <div id="blInputWrap" style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+            <select class="bl-select"><option value="">선택</option></select>
+            <select class="bl-select"><option value="">선택</option></select>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn btn-secondary btn-sm" onclick="addBlSelect()">+</button>
+            <button class="btn btn-secondary btn-sm" onclick="removeBlSelect()">-</button>
+            <button class="btn btn-primary btn-sm" style="flex:1" onclick="saveBlacklist()">등록</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <div class="mode-tabs">
-        <button class="mode-tab active" id="tabOne" onclick="switchMode('one')">✏️ 한 명씩 입력</button>
-        <button class="mode-tab" id="tabText" onclick="switchMode('text')">📋 텍스트로 입력</button>
-      </div>
+  <div class="right-panel">
+    <div class="panel">
+      <div class="panel-title">③ 자리 성별 & 고정석</div>
+      <div class="board-label">📋 칠판</div>
+      <div class="classroom-wrap">
+        <div class="classroom-grid" id="seatGrid"></div>
+      </div>
+      <div style="background: var(--empty); padding: 16px; border-radius: 10px; margin-top: 10px;">
+        <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">📌 특정 학생 고정석</div>
+        <div style="display: flex; gap: 8px;">
+          <select id="fixedStudentSelect" style="flex: 1;"><option value="">학생 선택...</option></select>
+          <button class="btn btn-primary" id="btnFixedMode" onclick="toggleFixedMode()">자리 지정</button>
+        </div>
+      </div>
+    </div>
 
-      <div id="modeOne">
-        <div class="student-input-row">
-          <input type="text" id="nameInput" placeholder="이름 입력" maxlength="8" onkeydown="if(event.key==='Enter')addStudent()">
-          <div class="gender-toggle">
-            <button id="btnM" onclick="setGender('m')" class="active-m">남</button>
-            <button id="btnF" onclick="setGender('f')">여</button>
-          </div>
-          <button class="btn btn-primary" onclick="addStudent()">추가</button>
-        </div>
-      </div>
+    <div class="panel">
+      <div class="panel-title">④ 배치 실행</div>
+      <div id="msgBox"></div>
+      <div class="action-row">
+        <button class="btn btn-primary" onclick="checkAndStartCountdown()" style="font-size:1.1rem; padding: 12px 24px;">🎲 랜덤 배치!</button>
+        <button class="btn btn-secondary" onclick="clearResult()">결과 초기화</button>
+      </div>
+    </div>
 
-      <div id="modeText" style="display:none">
-        <div class="text-mode-hint">
-          형식: <code>남: 홍길동 이순신 장보고</code> / <code>여: 유관순 신사임당</code><br>
-          띄어쓰기로 이름 구분, 줄바꿈 또는 <code>/</code>로 남/여 구분
-        </div>
-        <div class="text-mode-wrap">
-          <textarea id="textInput" placeholder="남: 홍길동 이순신 장보고&#10;여: 유관순 신사임당"></textarea>
-        </div>
-        <button class="btn btn-primary btn-full" onclick="parseTextInput()">📥 명단 불러오기</button>
-      </div>
-
-      <hr>
-      <div class="student-count" id="studentCount">학생 0명 (남 0 / 여 0)</div>
-      <div class="student-list" id="studentList"></div>
-      <button class="btn btn-secondary btn-full" style="margin-bottom: 20px;" onclick="clearStudents()">명단 초기화</button>
-
-      <div style="background: var(--empty); padding: 16px; border-radius: 10px; border: 1px solid var(--border);">
-        <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">📌 특정 학생 고정석</div>
-        <div style="display: flex; gap: 8px;">
-          <select id="fixedStudentSelect" style="flex: 1;">
-            <option value="">학생 명단을 추가해주세요</option>
-          </select>
-          <button class="btn btn-primary" id="btnFixedMode" onclick="toggleFixedMode()">자리 지정</button>
-        </div>
-        <div style="font-size:0.8rem; color:var(--sub); margin-top:8px;">버튼을 누른 후 우측 칠판에서 자리를 클릭하세요.</div>
-      </div>
-
-      <div class="blacklist-wrap">
-        <div class="bl-header" onclick="toggleBlacklist()">
-          <span>⛔ 블랙리스트 (떨어져 앉기)</span>
-          <span id="blToggleIcon">⬇️</span>
-        </div>
-        <div class="bl-content" id="blacklistContent" style="display:none;">
-          <div id="blacklistList"></div>
-          
-          <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px; margin-top:8px;">새 그룹 추가 (앞뒤양옆 금지)</div>
-          <div id="blInputWrap" style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
-            <select class="bl-select"><option value="">선택</option></select>
-            <select class="bl-select"><option value="">선택</option></select>
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn btn-secondary btn-sm" style="font-size: 1.1rem; padding: 4px 14px;" onclick="addBlSelect()">+</button>
-            <button class="btn btn-secondary btn-sm" style="font-size: 1.1rem; padding: 4px 14px;" onclick="removeBlSelect()">-</button>
-            <button class="btn btn-primary btn-sm" style="flex:1" onclick="saveBlacklist()">그룹 등록</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="right-panel">
-    <div class="panel">
-      <div class="panel-title">③ 자리 성별 & 고정석 지정</div>
-      <div class="legend">
-        <span><span class="legend-dot" style="background:var(--male-light);border:1px solid var(--male)"></span>남자 자리</span>
-        <span><span class="legend-dot" style="background:var(--female-light);border:1px solid var(--female)"></span>여자 자리</span>
-        <span><span class="legend-dot" style="background:var(--empty);border:1px solid #ddd"></span>빈 자리</span>
-        <span><span class="legend-dot" style="background:#fff;border:2px dashed #ccc"></span>미지정</span>
-      </div>
-      
-      <div id="fixedModeAlert" class="msg msg-info" style="display:none; text-align:center;"></div>
-
-      <div class="board-label">📋 칠판</div>
-      <div class="classroom-wrap">
-        <div class="classroom-grid" id="seatGrid"></div>
-      </div>
-      <div style="margin-top:16px;font-size:0.9rem;color:var(--sub);text-align:center;">클릭 순서: 미지정 → 남 → 여 → 빈자리 → 미지정<br>(고정석은 클릭하면 바로 해제됩니다)</div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">④ 배치 실행</div>
-      <div id="msgBox"></div>
-      <div class="action-row">
-        <button class="btn btn-primary" onclick="checkAndStartCountdown()" style="font-size:1.1rem; padding: 12px 24px;">🎲 랜덤 배치!</button>
-        <button class="btn btn-secondary" onclick="clearResult()">결과 초기화</button>
-      </div>
-    </div>
-
-    <div class="panel" id="resultPanel" style="display:none">
-      <div class="result-header">
-        <div class="panel-title" style="margin:0">배치 결과</div>
-        <div class="result-header-buttons">
-          <button class="btn btn-primary btn-sm" onclick="downloadImage()">📸 이미지 저장</button>
-          <button class="btn btn-secondary btn-sm" onclick="checkAndStartCountdown()">🔄 다시 배치</button>
-        </div>
-      </div>
-      
-      <div id="captureArea">
-        <div class="board-label">📋 칠판</div>
-        <div class="classroom-wrap">
-          <div class="classroom-grid result-mode" id="resultGrid"></div>
-        </div>
-      </div>
-      
-    </div>
-  </div>
+    <div class="panel" id="resultPanel" style="display:none">
+      <div class="result-header">
+        <div class="panel-title" style="margin:0">배치 결과</div>
+        <div class="result-header-buttons">
+          <button class="btn btn-primary btn-sm" onclick="downloadImage()">📸 이미지 저장</button>
+          <button class="btn btn-secondary btn-sm" onclick="checkAndStartCountdown()">🔄 다시 배치</button>
+        </div>
+      </div>
+      <div id="captureArea">
+        <div class="board-label">📋 칠판</div>
+        <div class="classroom-wrap">
+          <div class="classroom-grid result-mode" id="resultGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-// ── 상태 ──
 let cols = 6, rows = 5;
 let seatTypes = [];
 let fixedSeats = [];
 let students = [];
-let blacklists = []; 
+let blacklists = []; 
 let currentGender = 'm';
-
 let isFixedMode = false;
 let pendingFixedStudent = null;
 
-// 🔊 오디오 파일 연결 (반드시 동일한 폴더에 drumroll.mp3 이름으로 존재해야 함)
+// 🔊 시윤이가 올린 파일을 drumroll.mp3로 불러옴
 const drumrollSound = new Audio('drumroll.mp3');
 
-// ── 초기화 ──
 function init() {
-  cols = parseInt(document.getElementById('cols').value);
-  rows = parseInt(document.getElementById('rows').value);
-  seatTypes = Array(rows * cols).fill('unset');
-  fixedSeats = Array(rows * cols).fill(null);
-  renderGrid();
-  updateSelectOptions();
+  cols = parseInt(document.getElementById('cols').value);
+  rows = parseInt(document.getElementById('rows').value);
+  seatTypes = Array(rows * cols).fill('unset');
+  fixedSeats = Array(rows * cols).fill(null);
+  renderGrid();
+  updateSelectOptions();
 }
 
 function applyGrid() {
-  const nc = parseInt(document.getElementById('cols').value);
-  const nr = parseInt(document.getElementById('rows').value);
-  if (nc < 1 || nr < 1) return;
-  
-  const oldTypes = seatTypes.slice();
-  const oldFixed = fixedSeats.slice();
-  const oldCols = cols, oldRows = rows;
-  cols = nc; rows = nr;
-  
-  seatTypes = [];
-  fixedSeats = [];
-  
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const oldIdx = r * oldCols + c;
-      if (r < oldRows && c < oldCols) {
-        seatTypes.push(oldTypes[oldIdx]);
-        fixedSeats.push(oldFixed[oldIdx]);
-      } else {
-        seatTypes.push('unset');
-        fixedSeats.push(null);
-      }
-    }
-  }
-  renderGrid();
+  const nc = parseInt(document.getElementById('cols').value);
+  const nr = parseInt(document.getElementById('rows').value);
+  if (nc < 1 || nr < 1) return;
+  const oldTypes = seatTypes.slice(), oldFixed = fixedSeats.slice(), oldCols = cols, oldRows = rows;
+  cols = nc; rows = nr;
+  seatTypes = []; fixedSeats = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const oldIdx = r * oldCols + c;
+      if (r < oldRows && c < oldCols) {
+        seatTypes.push(oldTypes[oldIdx]); fixedSeats.push(oldFixed[oldIdx]);
+      } else {
+        seatTypes.push('unset'); fixedSeats.push(null);
+      }
+    }
+  }
+  renderGrid();
 }
 
 function applyAisleMargin(seat, index, totalCols) {
-  const c = index % totalCols;
-  if (totalCols % 2 === 0) {
-    if (c % 2 === 1 && c !== totalCols - 1) {
-      seat.style.marginRight = '40px'; 
-    }
-  } else {
-    if (c !== totalCols - 1) {
-      seat.style.marginRight = '24px'; 
-    }
-  }
+  const c = index % totalCols;
+  if (totalCols % 2 === 0) {
+    if (c % 2 === 1 && c !== totalCols - 1) seat.style.marginRight = '40px'; 
+  } else {
+    if (c !== totalCols - 1) seat.style.marginRight = '24px'; 
+  }
 }
 
 function renderGrid() {
-  const grid = document.getElementById('seatGrid');
-  grid.style.gridTemplateColumns = `repeat(${cols}, max-content)`;
-  grid.innerHTML = '';
-  for (let i = 0; i < rows * cols; i++) {
-    const seat = document.createElement('div');
-    applyAisleMargin(seat, i, cols); 
-
-    if (fixedSeats[i]) {
-      seat.className = 'seat fixed-seat ' + (fixedSeats[i].gender === 'm' ? 'male' : 'female');
-      seat.innerHTML = `<span class="seat-name">📌<br>${fixedSeats[i].name}</span>`;
-    } else {
-      seat.className = 'seat ' + typeToClass(seatTypes[i]);
-      seat.textContent = typeToLabel(seatTypes[i]);
-    }
-    
-    seat.onclick = () => cycleSeat(i);
-    grid.appendChild(seat);
-  }
+  const grid = document.getElementById('seatGrid');
+  grid.style.gridTemplateColumns = `repeat(${cols}, max-content)`;
+  grid.innerHTML = '';
+  for (let i = 0; i < rows * cols; i++) {
+    const seat = document.createElement('div');
+    applyAisleMargin(seat, i, cols); 
+    if (fixedSeats[i]) {
+      seat.className = 'seat fixed-seat ' + (fixedSeats[i].gender === 'm' ? 'male' : 'female');
+      seat.innerHTML = `<span class="seat-name">📌<br>${fixedSeats[i].name}</span>`;
+    } else {
+      seat.className = 'seat ' + typeToClass(seatTypes[i]);
+      seat.textContent = typeToLabel(seatTypes[i]);
+    }
+    seat.onclick = () => cycleSeat(i);
+    grid.appendChild(seat);
+  }
 }
 
 function typeToClass(t) { return { unset: 'unset', m: 'male', f: 'female', empty: 'empty' }[t] || 'unset'; }
 function typeToLabel(t) { return { unset: '?', m: '남', f: '여', empty: '✕' }[t] || '?'; }
 
 function cycleSeat(i) {
-  if (isFixedMode && pendingFixedStudent) {
-    const existingIdx = fixedSeats.findIndex(s => s && s.name === pendingFixedStudent.name);
-    if (existingIdx >= 0) fixedSeats[existingIdx] = null;
-    
-    fixedSeats[i] = pendingFixedStudent;
-    seatTypes[i] = pendingFixedStudent.gender; 
-    
-    toggleFixedMode(); 
-    renderGrid();
-    return;
-  }
-  
-  if (fixedSeats[i]) {
-    if(confirm(`[${fixedSeats[i].name}] 학생의 고정석을 해제할까요?`)) {
-      fixedSeats[i] = null;
-      seatTypes[i] = 'unset';
-      renderGrid();
-    }
-    return;
-  }
-
-  const order = ['unset', 'm', 'f', 'empty'];
-  const cur = order.indexOf(seatTypes[i]);
-  seatTypes[i] = order[(cur + 1) % order.length];
-  renderGrid();
+  if (isFixedMode && pendingFixedStudent) {
+    const ex = fixedSeats.findIndex(s => s && s.name === pendingFixedStudent.name);
+    if (ex >= 0) fixedSeats[ex] = null;
+    fixedSeats[i] = pendingFixedStudent;
+    seatTypes[i] = pendingFixedStudent.gender; 
+    toggleFixedMode(); renderGrid(); return;
+  }
+  if (fixedSeats[i]) {
+    if(confirm(`${fixedSeats[i].name} 고정 해제?`)) { fixedSeats[i] = null; seatTypes[i] = 'unset'; renderGrid(); }
+    return;
+  }
+  const order = ['unset', 'm', 'f', 'empty'];
+  seatTypes[i] = order[(order.indexOf(seatTypes[i]) + 1) % order.length];
+  renderGrid();
 }
 
 function updateSelectOptions() {
-  const fixedSelect = document.getElementById('fixedStudentSelect');
-  const blSelects = document.querySelectorAll('.bl-select');
-  
-  if (students.length === 0) {
-    fixedSelect.innerHTML = '<option value="">학생 명단을 추가해주세요</option>';
-    blSelects.forEach(s => s.innerHTML = '<option value="">선택</option>');
-    return;
-  }
-  
-  let optionsHTML = '<option value="">선택...</option>';
-  students.forEach(s => {
-    optionsHTML += `<option value="${s.name}">${s.name} (${s.gender === 'm' ? '남' : '여'})</option>`;
-  });
-  
-  fixedSelect.innerHTML = optionsHTML;
-  blSelects.forEach(select => {
-    const currentVal = select.value; 
-    select.innerHTML = optionsHTML;
-    if(students.find(s => s.name === currentVal)) select.value = currentVal;
-  });
+  const f = document.getElementById('fixedStudentSelect'), b = document.querySelectorAll('.bl-select');
+  let h = '<option value="">선택...</option>';
+  students.forEach(s => h += `<option value="${s.name}">${s.name}</option>`);
+  f.innerHTML = h; b.forEach(s => { const cur = s.value; s.innerHTML = h; s.value = cur; });
 }
 
 function toggleFixedMode() {
-  const btn = document.getElementById('btnFixedMode');
-  const alertDiv = document.getElementById('fixedModeAlert');
-  const select = document.getElementById('fixedStudentSelect');
-
-  if (isFixedMode) {
-    isFixedMode = false;
-    pendingFixedStudent = null;
-    btn.textContent = '자리 지정';
-    btn.className = 'btn btn-primary';
-    select.disabled = false;
-    alertDiv.style.display = 'none';
-  } else {
-    const name = select.value;
-    if (!name) { alert('고정할 학생을 먼저 명단에서 선택해주세요.'); return; }
-    
-    pendingFixedStudent = students.find(s => s.name === name);
-    isFixedMode = true;
-    btn.textContent = '지정 취소';
-    btn.className = 'btn btn-danger';
-    select.disabled = true;
-    alertDiv.style.display = 'block';
-    alertDiv.textContent = `👆 [${pendingFixedStudent.name}] 학생을 배치할 자리를 표에서 클릭하세요!`;
-  }
+  const btn = document.getElementById('btnFixedMode'), sel = document.getElementById('fixedStudentSelect');
+  if (isFixedMode) {
+    isFixedMode = false; pendingFixedStudent = null;
+    btn.textContent = '자리 지정'; btn.className = 'btn btn-primary'; sel.disabled = false;
+  } else {
+    if (!sel.value) return alert('학생을 먼저 선택하세요.');
+    pendingFixedStudent = students.find(s => s.name === sel.value);
+    isFixedMode = true; btn.textContent = '취소'; btn.className = 'btn btn-danger'; sel.disabled = true;
+  }
 }
 
 function toggleBlacklist() {
-  const content = document.getElementById('blacklistContent');
-  const icon = document.getElementById('blToggleIcon');
-  if (content.style.display === 'none') {
-    content.style.display = 'block';
-    icon.textContent = '⬆️';
-  } else {
-    content.style.display = 'none';
-    icon.textContent = '⬇️';
-  }
+  const c = document.getElementById('blacklistContent'), i = document.getElementById('blToggleIcon');
+  c.style.display = c.style.display === 'none' ? 'block' : 'none';
+  i.textContent = c.style.display === 'none' ? '⬇️' : '⬆️';
 }
 
 function addBlSelect() {
-  const wrap = document.getElementById('blInputWrap');
-  const select = document.createElement('select');
-  select.className = 'bl-select';
-  
-  let optionsHTML = '<option value="">선택...</option>';
-  students.forEach(s => { optionsHTML += `<option value="${s.name}">${s.name}</option>`; });
-  select.innerHTML = optionsHTML;
-  
-  wrap.appendChild(select);
+  const w = document.getElementById('blInputWrap'), s = document.createElement('select');
+  s.className = 'bl-select';
+  s.innerHTML = '<option value="">선택...</option>';
+  students.forEach(st => s.innerHTML += `<option value="${st.name}">${st.name}</option>`);
+  w.appendChild(s);
 }
 
 function removeBlSelect() {
-  const wrap = document.getElementById('blInputWrap');
-  if (wrap.children.length > 2) {
-    wrap.removeChild(wrap.lastChild);
-  } else {
-    alert("블랙리스트 그룹은 최소 2명을 지정해야 합니다.");
-  }
+  const w = document.getElementById('blInputWrap');
+  if (w.children.length > 2) w.removeChild(w.lastChild);
 }
 
 function saveBlacklist() {
-  const selects = document.querySelectorAll('.bl-select');
-  const selectedNames = [];
-  
-  selects.forEach(s => {
-    if (s.value && !selectedNames.includes(s.value)) {
-      selectedNames.push(s.value);
-    }
-  });
-
-  if (selectedNames.length < 2) {
-    alert("서로 떨어져 앉을 학생을 2명 이상 선택해주세요.");
-    return;
-  }
-
-  blacklists.push(selectedNames);
-  
-  const wrap = document.getElementById('blInputWrap');
-  wrap.innerHTML = '';
-  addBlSelect(); addBlSelect();
-  updateSelectOptions(); 
-  
-  renderBlacklist();
-}
-
-function removeBlacklist(index) {
-  blacklists.splice(index, 1);
-  renderBlacklist();
+  const sel = document.querySelectorAll('.bl-select'), names = [];
+  sel.forEach(s => { if(s.value && !names.includes(s.value)) names.push(s.value); });
+  if (names.length < 2) return alert("최소 2명 이상 선택!");
+  blacklists.push(names);
+  renderBlacklist(); updateSelectOptions();
 }
 
 function renderBlacklist() {
-  const list = document.getElementById('blacklistList');
-  list.innerHTML = '';
-  if (blacklists.length === 0) {
-    list.innerHTML = '<div style="font-size:0.85rem; color:var(--sub); margin-bottom:12px;">등록된 블랙리스트가 없습니다.</div>';
-    return;
-  }
-
-  blacklists.forEach((group, i) => {
-    const item = document.createElement('div');
-    item.className = 'bl-item';
-    item.innerHTML = `
-      <span>${group.join(' <span style="color:#c0395a;font-size:0.8rem;">❌</span> ')}</span>
-      <button class="btn btn-danger btn-sm" style="padding:4px 8px; font-size:0.75rem;" onclick="removeBlacklist(${i})">삭제</button>
-    `;
-    list.appendChild(item);
-  });
+  const l = document.getElementById('blacklistList');
+  l.innerHTML = blacklists.length ? '' : '등록된 그룹 없음';
+  blacklists.forEach((g, i) => {
+    const d = document.createElement('div'); d.className = 'bl-item';
+    d.innerHTML = `<span>${g.join(' ❌ ')}</span><button class="btn btn-danger btn-sm" onclick="blacklists.splice(${i},1);renderBlacklist()">삭제</button>`;
+    l.appendChild(d);
+  });
 }
 
-function switchMode(mode) {
-  document.getElementById('modeOne').style.display  = mode === 'one'  ? '' : 'none';
-  document.getElementById('modeText').style.display = mode === 'text' ? '' : 'none';
-  document.getElementById('tabOne').classList.toggle('active',  mode === 'one');
-  document.getElementById('tabText').classList.toggle('active', mode === 'text');
+function switchMode(m) {
+  document.getElementById('modeOne').style.display = m === 'one' ? '' : 'none';
+  document.getElementById('modeText').style.display = m === 'text' ? '' : 'none';
+  document.getElementById('tabOne').className = m === 'one' ? 'mode-tab active' : 'mode-tab';
+  document.getElementById('tabText').className = m === 'text' ? 'mode-tab active' : 'mode-tab';
 }
 
 function parseTextInput() {
-  const raw = document.getElementById('textInput').value;
-  const lines = raw.replace(/\//g, '\n').split('\n').map(l => l.trim()).filter(Boolean);
-
-  let added = 0;
-  const errors = [];
-
-  lines.forEach(line => {
-    const mMatch = line.match(/^남\s*[:：]\s*(.+)/);
-    const fMatch = line.match(/^여\s*[:：]\s*(.+)/);
-    if (mMatch) {
-      mMatch[1].trim().split(/\s+/).forEach(name => {
-        if (name) { students.push({ name, gender: 'm' }); added++; }
-      });
-    } else if (fMatch) {
-      fMatch[1].trim().split(/\s+/).forEach(name => {
-        if (name) { students.push({ name, gender: 'f' }); added++; }
-      });
-    } else if (line) {
-      errors.push(`인식 불가: "${line}"`);
-    }
-  });
-
-  renderStudentList();
-
-  const msgBox = document.getElementById('msgBox');
-  if (errors.length) { msgBox.innerHTML = `<div class="msg msg-error">⚠️ ${errors.join('<br>')}</div>`; }
-  if (added > 0) {
-    document.getElementById('textInput').value = '';
-    const prev = msgBox.innerHTML;
-    msgBox.innerHTML = `<div class="msg msg-success">✅ ${added}명 추가됨</div>` + prev;
-    setTimeout(() => { const s = msgBox.querySelector('.msg-success'); if (s) s.remove(); }, 2000);
-  }
-}
-
-function setGender(g) {
-  currentGender = g;
-  document.getElementById('btnM').className = g === 'm' ? 'active-m' : '';
-  document.getElementById('btnF').className = g === 'f' ? 'active-f' : '';
-}
-
-function addStudent() {
-  const input = document.getElementById('nameInput');
-  const name = input.value.trim();
-  if (!name) return;
-  students.push({ name, gender: currentGender });
-  input.value = '';
-  input.focus();
-  renderStudentList();
-}
-
-function removeStudent(i) {
-  const s = students[i];
-  const fIdx = fixedSeats.findIndex(f => f && f.name === s.name);
-  if (fIdx >= 0) { fixedSeats[fIdx] = null; seatTypes[fIdx] = 'unset'; }
-  
-  blacklists = blacklists.map(group => group.filter(name => name !== s.name)).filter(group => group.length >= 2);
-  
-  students.splice(i, 1);
-  renderStudentList();
-  renderGrid();
-  renderBlacklist();
-}
-
-function clearStudents() {
-  if (students.length && !confirm('명단을 초기화할까요? 고정석 및 블랙리스트도 모두 삭제됩니다.')) return;
-  students = [];
-  fixedSeats = Array(rows * cols).fill(null);
-  blacklists = [];
-  renderStudentList();
-  renderGrid();
-  renderBlacklist();
-}
-
-function renderStudentList() {
-  const list = document.getElementById('studentList');
-  const mCount = students.filter(s => s.gender === 'm').length;
-  const fCount = students.filter(s => s.gender === 'f').length;
-  document.getElementById('studentCount').textContent = `학생 ${students.length}명 (남 ${mCount} / 여 ${fCount})`;
-
-  list.innerHTML = '';
-  students.forEach((s, i) => {
-    const item = document.createElement('div');
-    item.className = 'student-item';
-    item.innerHTML = `
-      <span>${s.name}<span class="student-badge ${s.gender === 'm' ? 'badge-m' : 'badge-f'}">${s.gender === 'm' ? '남' : '여'}</span></span>
-      <button class="btn btn-danger btn-sm" onclick="removeStudent(${i})">삭제</button>
-    `;
-    list.appendChild(item);
-  });
-  
-  updateSelectOptions();
-}
-
-function areBlacklisted(name1, name2) {
-  for (let group of blacklists) {
-    if (group.includes(name1) && group.includes(name2)) return true;
-  }
-  return false;
-}
-
-function isValidArrangement(result) {
-  if (blacklists.length === 0) return true; 
-
-  for (let i = 0; i < result.length; i++) {
-    const cellA = result[i];
-    if (!cellA || cellA === 'empty' || cellA === 'empty-seat') continue;
-
-    const r = Math.floor(i / cols);
-    const c = i % cols;
-
-    if (c < cols - 1) {
-      const cellB = result[i + 1];
-      if (cellB && cellB !== 'empty' && cellB !== 'empty-seat') {
-        if (areBlacklisted(cellA.name, cellB.name)) return false;
-      }
-    }
-    if (r < rows - 1) {
-      const cellB = result[i + cols];
-      if (cellB && cellB !== 'empty' && cellB !== 'empty-seat') {
-        if (areBlacklisted(cellA.name, cellB.name)) return false;
-      }
-    }
-  }
-  return true;
-}
-
-function checkAndStartCountdown() {
-  const msgBox = document.getElementById('msgBox');
-  msgBox.innerHTML = '';
-
-  const unassignedMStudents = students.filter(s => s.gender === 'm' && !fixedSeats.find(f => f && f.name === s.name));
-  const unassignedFStudents = students.filter(s => s.gender === 'f' && !fixedSeats.find(f => f && f.name === s.name));
-  const availableMSeats = seatTypes.map((t, i) => t === 'm' && !fixedSeats[i] ? i : -1).filter(i => i >= 0);
-  const availableFSeats = seatTypes.map((t, i) => t === 'f' && !fixedSeats[i] ? i : -1).filter(i => i >= 0);
-
-  const errors = [];
-  if (unassignedMStudents.length > availableMSeats.length)
-    errors.push(`남은 남학생 ${unassignedMStudents.length}명인데 빈 남자 자리가 ${availableMSeats.length}개예요.`);
-  if (unassignedFStudents.length > availableFSeats.length)
-    errors.push(`남은 여학생 ${unassignedFStudents.length}명인데 빈 여자 자리가 ${availableFSeats.length}개예요.`);
-
-  if (errors.length) {
-    msgBox.innerHTML = errors.map(e => `<div class="msg msg-error">⚠️ ${e}</div>`).join('');
-    return;
-  }
-
-  startCountdown();
-}
-
-// ✨ 카운트다운 및 오디오 재생 로직 (완벽하게 5초, 오타 제거)
-function startCountdown() {
-  const overlay = document.getElementById('countdownOverlay');
-  const countText = document.getElementById('countText');
-  let count = 5; // 👈 5초
-
-  overlay.style.display = 'flex';
-  
-  // 🔊 버튼 클릭 시 오디오 처음부터 재생
-  drumrollSound.currentTime = 0;
-  drumrollSound.play().catch(e => console.log('재생 불가:', e));
-
-  const tick = setInterval(() => {
-    if (count > 0) {
-      countText.textContent = count;
-      countText.style.animation = 'none';
-      void countText.offsetWidth; 
-      countText.style.animation = 'popIn 0.8s forwards';
-      count--;
-    } else {
-      clearInterval(tick);
-      overlay.style.display = 'none'; 
-      arrangeLogic(); 
-    }
-  }, 1000);
-}
-
-function arrangeLogic() {
-  const msgBox = document.getElementById('msgBox');
-  const unassignedMStudents = students.filter(s => s.gender === 'm' && !fixedSeats.find(f => f && f.name === s.name));
-  const unassignedFStudents = students.filter(s => s.gender === 'f' && !fixedSeats.find(f => f && f.name === s.name));
-  const availableMSeats = seatTypes.map((t, i) => t === 'm' && !fixedSeats[i] ? i : -1).filter(i => i >= 0);
-  const availableFSeats = seatTypes.map((t, i) => t === 'f' && !fixedSeats[i] ? i : -1).filter(i => i >= 0);
-
-  let finalResult = null;
-  const maxAttempts = 1000;
-
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const shuffleM = shuffle(unassignedMStudents.map(s => s.name));
-    const shuffleF = shuffle(unassignedFStudents.map(s => s.name));
-    const shuffledMSeats = shuffle(availableMSeats);
-    const shuffledFSeats = shuffle(availableFSeats);
-
-    const result = Array(rows * cols).fill(null);
-    
-    seatTypes.forEach((t, i) => { if (t === 'empty') result[i] = 'empty'; });
-    fixedSeats.forEach((f, i) => { if (f) result[i] = { name: f.name, gender: f.gender, isFixed: true }; });
-
-    shuffleM.forEach((name, i) => { result[shuffledMSeats[i]] = { name, gender: 'm', isFixed: false }; });
-    shuffleF.forEach((name, i) => { result[shuffledFSeats[i]] = { name, gender: 'f', isFixed: false }; });
-    
-    shuffledMSeats.slice(shuffleM.length).forEach(i => { result[i] = 'empty-seat'; });
-    shuffledFSeats.slice(shuffleF.length).forEach(i => { result[i] = 'empty-seat'; });
-
-    if (isValidArrangement(result)) {
-      finalResult = result;
-      break; 
-    }
-  }
-
-  if (!finalResult) {
-    msgBox.innerHTML = `<div class="msg msg-error">⚠️ 블랙리스트 조건이 너무 까다로워서 배치를 완료할 수 없어요! 조건을 조금 줄여주세요.</div>`;
-    return;
-  }
-
-  renderResult(finalResult);
-  msgBox.innerHTML = `<div class="msg msg-success">🎉 두근두근 배치 완료!</div>`;
-}
-
-function renderResult(result) {
-  const panel = document.getElementById('resultPanel');
-  const grid = document.getElementById('resultGrid');
-  panel.style.display = 'block';
-  grid.style.gridTemplateColumns = `repeat(${cols}, max-content)`;
-  grid.innerHTML = '';
-
-  result.forEach((cell, i) => {
-    const seat = document.createElement('div');
-    seat.className = 'seat result-mode ';
-    
-    applyAisleMargin(seat, i, cols); 
-
-    if (!cell) {
-      seat.className += 'unset';
-      seat.textContent = '?';
-    } else if (cell === 'empty' || cell === 'empty-seat') {
-      seat.className += 'empty';
-      seat.textContent = '✕';
-    } else {
-      seat.className += cell.gender === 'm' ? 'male' : 'female';
-      seat.innerHTML = `<span class="seat-name">${cell.name}</span>`;
-    }
-    grid.appendChild(seat);
-  });
-
-  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function clearResult() {
-  document.getElementById('resultPanel').style.display = 'none';
-  document.getElementById('msgBox').innerHTML = '';
-}
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function downloadImage() {
-  const captureDiv = document.getElementById('captureArea');
-  html2canvas(captureDiv, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
-    const link = document.createElement('a');
-    link.href = canvas.toDataURL('image/png');
-    link.download = '자리배치결과.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }).catch(error => {
-    console.error('이미지 저장 실패:', error);
-    alert('이미지를 저장하는 중 오류가 발생했습니다.');
-  });
-}
-
-init();
-renderBlacklist(); 
-</script>
-</body>
-</html>
+  const raw = document.getElementById('textInput').value;
+  const lines = raw.replace(/\//g, '\n').split('\n').filter(Boolean);
+  lines.forEach(line => {
+    const m = line.match(/^남\s*[:：]\s*(.+)/), f = line.match(/^여\s*[:：]\s*(.+)/);
+    if (m) m[1].trim().split(/\s+/).forEach(n => students.push({name:n, gender:'m'}));
+    else if (f) f[1].trim().split(/\s+/).forEach(n => students.push({name:n, gender:'f'}));
+  });
+  renderStudentList();
