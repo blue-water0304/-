@@ -42,9 +42,9 @@
 
   .layout {
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 380px 1fr;
     gap: 20px;
-    max-width: 1100px;
+    max-width: 1160px;
     margin: 0 auto;
   }
 
@@ -576,13 +576,27 @@ function playTada() {
   setTimeout(() => playBeep(1046.50, 'square', 0.5), 450);  // 높은 도
 }
 
+// ── localStorage ──
+function saveStudents() {
+  localStorage.setItem('seating_students', JSON.stringify(students));
+}
+
+function loadStudents() {
+  try {
+    const saved = localStorage.getItem('seating_students');
+    if (saved) students = JSON.parse(saved);
+  } catch(e) { students = []; }
+}
+
 // ── 초기화 ──
 function init() {
   cols = parseInt(document.getElementById('cols').value);
   rows = parseInt(document.getElementById('rows').value);
   seatTypes = Array(rows * cols).fill('unset');
   fixedSeats = Array(rows * cols).fill(null);
+  loadStudents();
   renderGrid();
+  renderStudentList();
   updateSelectOptions();
 }
 
@@ -841,8 +855,7 @@ function parseTextInput() {
   });
 
   renderStudentList();
-
-  const msgBox = document.getElementById('msgBox');
+  if (added > 0) saveStudents();
   if (errors.length) { msgBox.innerHTML = `<div class="msg msg-error">⚠️ ${errors.join('<br>')}</div>`; }
   if (added > 0) {
     document.getElementById('textInput').value = '';
@@ -866,6 +879,7 @@ function addStudent() {
   input.value = '';
   input.focus();
   renderStudentList();
+  saveStudents();
 }
 
 function removeStudent(i) {
@@ -879,6 +893,7 @@ function removeStudent(i) {
   renderStudentList();
   renderGrid();
   renderBlacklist();
+  saveStudents();
 }
 
 function clearStudents() {
@@ -889,6 +904,7 @@ function clearStudents() {
   renderStudentList();
   renderGrid();
   renderBlacklist();
+  saveStudents();
 }
 
 function renderStudentList() {
@@ -1037,6 +1053,7 @@ function arrangeLogic() {
 
   if (!finalResult) {
     msgBox.innerHTML = `<div class="msg msg-error">⚠️ 블랙리스트 조건이 너무 까다로워서 배치를 완료할 수 없어요! 조건을 조금 줄여주세요.</div>`;
+    msgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
